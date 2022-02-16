@@ -1,0 +1,96 @@
+#include<iostream>
+#include"Header.h"
+#include<string>
+#include<vector>
+#include<map>
+
+using namespace std;
+
+int main()
+{
+map<string,vector<movie> >mp;
+map<string, vector<string> > mprev;
+int num_of_mov,num_act;
+cout << "Enter number of movies" << endl;
+cin >> num_of_mov;
+for (int i = 0; i < num_of_mov; i++)
+{
+string movies, actor;
+cout << "Enter movies" << endl;
+cin >> movies;
+cout << "Enter num_act" << endl;
+cin >> num_act;
+for (int i = 0; i < num_act; i++)
+{
+cout << "ENTER actor" << endl;
+cin >> actor;
+
+mp[movies].push_back(movie(actor));
+}
+}
+
+
+int u = 1;
+cout << "find actor" << endl;
+string s;
+cout << "Enter name of actor that you want his movie" << endl;
+cin >> s;
+map<string, vector<movie> >::iterator it = mp.find(s);
+vector<movie>::iterator i;
+for (i = it->second.begin(); i != it->second.end(); i++)
+{
+
+cout << "actor" << u++ << " " << i->Getact() << endl;
+}
+
+u = 1;
+
+cout << "***************************************************************************************" << endl;
+cout << "find movie" << endl;
+string d;
+cout << "Enter name of movie that you want actor it" << endl;
+cin >> d;
+map<string, vector<movie> >::iterator it1 = mp.begin();
+vector<movie>::iterator j;
+
+for (it1; it1 != mp.end(); it1++)
+{
+for (j = it1->second.begin(); j != it1->second.end(); j++)
+{
+if (j->Getact() == d) {
+cout << "movie: " << u++ << it1->first << endl;
+}
+}
+}
+
+cout << "*************************************************************************************" << endl;
+
+it = mp.begin();
+vector<movie>::iterator l;
+
+for (it; it != mp.end(); it++)
+{
+for (l = it->second.begin(); l != it->second.end(); l++)
+{
+mprev[l->Getact()].push_back(it->first);
+
+}
+
+}
+
+cout << "new maprev" << endl;
+cout<<"*****************************************************************************************" << endl;
+map<string,vector<string> >::iterator w = mprev.begin();
+for (w; w != mprev.end(); w++)
+{
+cout << w->first << " " ;
+for (vector<string>::iterator g = w->second.begin(); g != w->second.end(); g++)
+{
+cout << *g << " ";
+}
+cout << endl;
+}
+system("pause");
+return 0;
+
+}
